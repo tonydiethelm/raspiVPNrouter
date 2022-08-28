@@ -1,0 +1,23 @@
+#Go into the Raspbery Pi configuration tool and expand the file system
+#so it sees the whole disk, or you're not going to have room to do anything.
+
+
+#update the system
+sudo apt-get upgrade
+sudo apt-get update
+
+#https://support.nordvpn.com/Connectivity/Linux/1047409422/Connect-to-NordVPN-using-Linux-Terminal.htm
+
+#disable IP6, per above documentation. 
+sudo echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
+sudo echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
+sudo echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
+sudo echo "net.ipv6.conf.tun0.disable_ipv6 = 1" >> /etc/sysctl.conf
+
+sudo reboot
+
+#install openVPN and reboot
+sudo apt-get install openvpn -y
+sudo reboot
+
+
