@@ -35,3 +35,62 @@ sudo unzip ovpn.zip
 #Should be minimal disruption. 
 
 
+#Start up 
+sudo openvpn /etc/openvpn/"rest of chosen file name"
+#enter proper authentication.
+
+#Testing... it works. Cool. NOW...
+#I need it to start up automagically on bootup. 
+
+# I could put a line in rc.local to start it up. Might be easier than what I'm going to do... 
+
+#https://support.nordvpn.com/Connectivity/Linux/1047410192/Linux-start-on-boot-manual-connection.htm
+
+
+#create an auth.txt file inside the /etc/openvpn dir
+sudo nano /etc/openvpn/auth.txt
+#type in username and password on separate lines
+
+#sudo nano /etc/openvpn/"filename you picked"
+#change line "auth-user-pass" to "auth-user-pass auth.txt"
+
+#save as simple name. Not sure why this is needed, honestly. With .conf file name?
+
+#change default openvpn config file
+sudo nano /etc/default/openvpn
+
+#above #AUTOSTART="all" line, put in "AUTOSTART="name you picked""
+
+#reboot
+sudo reboot
+
+#Should work after that. 
+
+
+
+#configure first network card to be 192.168.0.1
+#second network card should auto connect based on router DHCP.
+#I'll need to set up my main router to give out an IP address range NOT on my local network. 
+#Yeah, that means double NAT, but oh well? 
+#Look into this, maybe I don't need to do that? 
+#I can keep that network address and use this as 192.168.0.whatever...
+# and set my DHCP to point to this box as the default router. 
+
+
+
+# I'll need to configure this box to route connections. 
+# Do I need NAT? Maybe not, as per above? 
+
+#https://thepi.io/how-to-use-your-raspberry-pi-as-a-vpn-router/
+
+#flush out old iptables rules. 
+sudo iptables -F
+sudo iptables -t nat -F
+sudo iptables -X
+
+# I think I can just enable IP forwarding and be done? 
+# edit /etc/sysctl.conf and change the line "net.ipv4.ip_forward = 0" to "1". 
+
+
+
+
