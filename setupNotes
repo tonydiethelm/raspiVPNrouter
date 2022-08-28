@@ -1,6 +1,8 @@
 #Go into the Raspbery Pi configuration tool and expand the file system
 #so it sees the whole disk, or you're not going to have room to do anything.
 
+#Can also use...
+sudo raspi-config --expand-rootfs
 
 #update the system
 sudo apt-get upgrade
@@ -19,5 +21,17 @@ sudo reboot
 #install openVPN and reboot
 sudo apt-get install openvpn -y
 sudo reboot
+
+#go into the openVPN configuration directory and download the
+#configuration files from NordVPN.
+cd /etc/openVPN
+sudo wget https://downloads.nordcdn.com/configs/archives/servers/ovpn.zip
+
+#unzip the files
+sudo unzip ovpn.zip
+
+#Pick a file
+# I'm going to use us9506 or us9507, which is based in Seattle. 
+#Should be minimal disruption. 
 
 
